@@ -3,9 +3,10 @@ package models
 import "gorm.io/gorm"
 
 type Client struct {
-	Name    string
-	Surname string
 	gorm.Model
-	RegNo   string
-	PhoneNo string
+	Name     string `gorm:"not null"`
+	Surname  string `gorm:"not null"`
+	RegNo    string `gorm:"not null"`
+	PhoneNo  string `gorm:"not null"`
+	Password string `gorm:"not null"`
 }

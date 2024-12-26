@@ -3,7 +3,10 @@ package models
 import "gorm.io/gorm"
 
 type Wallet struct {
-	AccountNo string
-	// Client Id FK
 	gorm.Model
+	ClientID      uint
+	AccountNo     string
+	Balance       float64
+	ClientSurname string
+	ClientName    string
 }
