@@ -67,7 +67,7 @@ func Transferfunds(c *fiber.Ctx) error {
 	var bankfee float64
 
 	if strings.HasPrefix(request.DestAcc, "5") {
-		var bankfee = 100.00
+		bankfee = 100.00
 		srcAccount.Balance -= bankfee
 
 		var masterAccount models.Wallet
@@ -91,7 +91,7 @@ func Transferfunds(c *fiber.Ctx) error {
 		}
 
 	} else {
-		var bankfee = 300.00
+		bankfee = 300.00
 		srcAccount.Balance -= bankfee
 		var masterAccount models.Wallet
 		if err := config.DB.Where("ID", 1).First(&masterAccount).Error; err != nil {
