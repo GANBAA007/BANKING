@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetAcc(c *fiber.Ctx) error {
+func GetAccAll(c *fiber.Ctx) error {
 	clientID, ok := c.Locals("client_id").(uint)
 	if !ok {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
