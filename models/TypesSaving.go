@@ -7,12 +7,14 @@ import (
 )
 
 type Savings struct {
-	gorm.Model
-	ClientID       uint
-	MonthlyPayment float64
-	MinAmount      float64
-	IsChecking     bool
-	IsYieldofYield bool
-	Balance        float64
-	ExpDate        time.Time
+	gorm.Model     //
+	AccountNo      string
+	ClientID       uint      //
+	MonthlyPayment float64   //
+	PaymentDate    time.Time //
+	MinAmount      float64   //
+	Balance        float64   //
+	ExpDate        time.Time //
+	InterestRate   float64   //
+	InterestProfit float64
 }
