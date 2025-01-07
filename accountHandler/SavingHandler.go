@@ -130,9 +130,9 @@ func Cancelsaving(c *fiber.Ctx) error {
 	}
 
 	var transferReq Req
-	transferReq.SrcAcc = saving.AccountNo  // Source account (the saving account)
-	transferReq.DestAcc = Wallet.AccountNo // Replace with the actual destination account
-	transferReq.Amount = saving.Balance    // Transfer the entire balance
+	transferReq.SrcAcc = saving.AccountNo
+	transferReq.DestAcc = Wallet.AccountNo
+	transferReq.Amount = saving.Balance
 
 	if err := Transferfunds(c); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

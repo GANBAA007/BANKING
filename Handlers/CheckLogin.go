@@ -14,7 +14,7 @@ import (
 
 func CheckLogin(c *fiber.Ctx) error {
 	var Login struct {
-		RegNo    string `json:"email"`
+		Reg_no   string `json:"regno"`
 		Password string `json:"password"`
 	}
 
@@ -23,10 +23,10 @@ func CheckLogin(c *fiber.Ctx) error {
 			"error": "Invalid input data",
 		})
 	}
-	Login.RegNo = strings.TrimSpace(Login.RegNo)
+	Login.Reg_no = strings.TrimSpace(Login.Reg_no)
 
-	var client models.Client
-	if err := config.DB.Where("regno=?", Login.RegNo).First(&client).Error; err != nil {
+	var clients models.Client
+	if err := config.DB.Where("reg_no=?", Login.Reg_no).First(&clients).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"error": "Email or password incorrect"})
@@ -36,14 +36,14 @@ func CheckLogin(c *fiber.Ctx) error {
 			"error": "An unexpected error occurred",
 		})
 	}
-	if err := bcrypt.CompareHashAndPassword([]byte(client.Password), []byte(Login.Password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(clients.Password), []byte(Login.Password)); err != nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"error": "Email or password incorrect",
 		})
 
 	}
 
-	token, err := token.GenerateToken(client.ID)
+	token, err := token.GenerateToken(clients.ID)
 	if err != nil {
 		log.Printf("Error generating token: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -54,9 +54,9 @@ func CheckLogin(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "Login successful",
 		"user": fiber.Map{
-			"ClientID": client.ID,
-			"regno":    client.RegNo,
-			"name":     client.Name,
+			"ClientID": clients.ID,
+			"regno":    clients.RegNo,
+			"name":     clients.Name,
 			"token":    token,
 		},
 	})

@@ -19,7 +19,7 @@ func CreateAccount(c *fiber.Ctx) error {
 		})
 	}
 	var existingacc models.Wallet
-	err := config.DB.Where("regno=?", existingacc.AccountNo).First(&existingacc).Error
+	err := config.DB.Where("account_no=?", existingacc.AccountNo).First(&existingacc).Error
 	if err != nil {
 		if !errors.Is(err, gorm.ErrRecordNotFound) {
 			log.Printf("Database query error: %v", err)

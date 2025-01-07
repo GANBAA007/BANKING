@@ -21,7 +21,7 @@ func CreateClient(c *fiber.Ctx) error {
 	}
 
 	var existingClient models.Client
-	err := config.DB.Where("regno = ?", client.RegNo).First(&existingClient).Error //reg_existing
+	err := config.DB.Where("reg_no = ?", client.RegNo).First(&existingClient).Error //reg_existing
 	if err != nil {
 		if !errors.Is(err, gorm.ErrRecordNotFound) {
 			log.Printf("Database query error: %v", err)

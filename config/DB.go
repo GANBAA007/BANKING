@@ -14,7 +14,7 @@ var DB *gorm.DB
 
 func ConnectDB() *gorm.DB {
 	dsn := fmt.Sprintf(
-		"Host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASSWORD"),
@@ -39,7 +39,7 @@ func Migrate() {
 	if err != nil {
 		log.Fatal("Migrating failed:", err)
 	} else {
-		log.Fatal("migration success")
+		log.Println("migration success")
 	}
 
 }
